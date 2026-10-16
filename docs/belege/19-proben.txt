@@ -1,0 +1,4 @@
+# #19 Proben 2026-10-06T09:14:11.782Z — Server: AGENT_PLANNER_HOST=0.0.0.0 AGENT_PLANNER_ALLOWED_CLIENTS=192.0.2.0/24 AGENT_PLANNER_ALLOWED_HOSTS=192.0.2.65:4326 Port 4326
+GET  http://192.0.2.65:4326/ (LAN) -> 200 <!doctype html> <html lang="de"> <head> 
+GET  http://100.64.0.7:4326/ (Tailscale) -> 403 Abgelehnt: Quelle
+POST http://100.64.0.7:4326/agents/daily-briefing/run  Host: 127.0.0.1:4326 (gefälscht), HX-Request: true -> 403 Abgelehnt: Quelle

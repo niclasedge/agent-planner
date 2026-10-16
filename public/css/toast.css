@@ -1,0 +1,9 @@
+/* Fehler-Toast für htmx-Anfragen (#5) */
+.toasts { position: fixed; right: 24px; bottom: 24px; z-index: 50; display: flex; flex-direction: column; gap: 10px; max-width: 420px; }
+.toast {
+  background: #3a1f1f; color: #ffd9d6; border-left: 3px solid var(--red); border-radius: 10px;
+  padding: 11px 14px; font-size: 13px; line-height: 1.45; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  animation: toast-in 0.18s ease-out; transition: opacity 0.3s, transform 0.3s; word-break: break-word;
+}
+.toast--out { opacity: 0; transform: translateY(6px); }
+@keyframes toast-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }

@@ -1,0 +1,63 @@
+#!/usr/bin/env bun
+import { dirname, resolve } from "node:path";
+import { loadAgent, loadAgents, resolveDir } from "../src/agent";
+import { cronToOnCalendar, cronWarning, cronWarnings, validateOnCalendar } from "../src/cron";
+import { detectTrigger, runAgent } from "../src/runner";
+import { syncUnits } from "../src/units";
+
+const USAGE = `agent-planner <befehl>
+  sync [--dir <ordner>] [--force]       Units aus Agent-Dateien abgleichen (--force: anderer Ordner als bisher)
+  run <slug> [--manual] [--dir <ordner>] einen Agenten ausführen
+  validate-cron '<ausdruck>'            Cron prüfen und übersetzen`;
+
+const argv = process.argv.slice(2);
+const flag = (name: string): string | undefined => {
+  const i = argv.indexOf(name);
+  return i >= 0 ? argv[i + 1] : undefined;
+};
+const positional = argv.filter((a, i) => !a.startsWith("--") && argv[i - 1] !== "--dir");
+const [cmd, arg] = positional;
+
+try {
+  switch (cmd) {
+    case "validate-cron": {
+      if (!arg) throw new Error("validate-cron braucht einen Ausdruck");
+      const r = cronToOnCalendar(arg);
+      if (!(await validateOnCalendar(r.onCalendar))) throw new Error(`systemd-analyze lehnt "${r.onCalendar}" ab`);
+      console.log(`${r.onCalendar}\n${r.human}`);
+      const w = await cronWarning(arg);
+      if (w) console.error(`Warnung: ${w}`);
+      break;
+    }
+    case "sync": {
+      const dir = resolveDir(flag("--dir"), process.env);
+      const script = resolve(import.meta.dir, "agent-planner");
+      const agents = loadAgents(dir);
+      const r = await syncUnits(agents, {
+        runnerPath: [process.execPath, script],
+        bunDir: dirname(process.execPath),
+        agentDir: resolve(dir),
+        force: argv.includes("--force"),
+      });
+      console.log(`sync ok: ${r.changed.length} Agent(en) geändert${r.templateChanged ? ", Template erneuert" : ""}`);
+      for (const w of await cronWarnings(agents)) console.error(`Warnung: ${w}`);
+      break;
+    }
+    case "run": {
+      if (!arg) throw new Error("run braucht einen Slug");
+      const dir = resolveDir(flag("--dir"), process.env);
+      const agent = loadAgent(dir, arg);
+      const trigger = detectTrigger(arg, { manualFlag: argv.includes("--manual") });
+      const r = await runAgent(agent, { trigger });
+      console.log(`${r.runId} ${r.status}`);
+      // `stopped` = `systemctl stop`: gewollt, die Unit soll nicht auf failed stehen (Review #9)
+      process.exit(r.status === "success" || r.status === "stopped" ? 0 : 1);
+    }
+    default:
+      console.error(USAGE);
+      process.exit(cmd ? 2 : 0);
+  }
+} catch (e) {
+  console.error(`Fehler: ${(e as Error).message}`);
+  process.exit(1);
+}

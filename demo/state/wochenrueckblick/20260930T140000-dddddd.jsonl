@@ -1,0 +1,6 @@
+{"type": "system", "subtype": "init"}
+{"type": "assistant", "message": {"content": [{"type": "tool_use", "id": "t1", "name": "Glob", "input": {"pattern": "Calendar/Daily/2026-09-2*.md"}}]}}
+{"type": "user", "message": {"content": [{"type": "tool_result", "tool_use_id": "t1", "content": "…"}]}}
+{"type": "assistant", "message": {"content": [{"type": "tool_use", "id": "t2", "name": "Read", "input": {"file_path": "/home/demo/notes-vault/Calendar/Daily/2026-09-28.md"}}]}}
+{"type": "user", "message": {"content": [{"type": "tool_result", "tool_use_id": "t2", "content": "…"}]}}
+{"type": "result", "subtype": "success", "is_error": false, "result": "### Woche 40\n\n**Erledigt:** 12 Aufgaben · **Offen:** 4\n\nSchwerpunkte nächste Woche:\n1. agent-planner Detailansicht\n2. Review der Bewerbungsunterlagen\n3. Laufplan anpassen", "num_turns": 11, "total_cost_usd": 0.5}

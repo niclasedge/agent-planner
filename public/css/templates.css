@@ -1,0 +1,19 @@
+/* Vorlagen-Abschnitt unter den Karten (#6) */
+.templates { margin-top: 44px; }
+.wave {
+  height: 10px;
+  margin: 0 auto 28px;
+  max-width: 220px;
+  opacity: 0.55;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='10' viewBox='0 0 24 10'%3E%3Cpath d='M0 5 Q6 0 12 5 T24 5' fill='none' stroke='%239b9ba3' stroke-width='1.5'/%3E%3C/svg%3E") repeat-x center;
+}
+.templates__title { font: 600 20px/1.2 var(--font-serif); margin: 0 0 18px; color: var(--text); }
+.templates__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.tpl { display: flex; gap: 14px; align-items: flex-start; padding: 14px 16px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.07); transition: background 0.12s, border-color 0.12s; min-width: 0; }
+.tpl:hover { background: var(--bg-card); border-color: transparent; }
+.tpl__icon { flex: none; width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); font-size: 20px; line-height: 1; }
+.tpl__text { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.tpl__name { font-weight: 600; }
+.tpl__summary { color: var(--text-dim); font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tpl__when { display: inline-flex; align-items: center; gap: 6px; color: var(--text-faint); font-size: 12px; margin-top: 2px; }
+.tpl__clock { width: 13px; height: 13px; }

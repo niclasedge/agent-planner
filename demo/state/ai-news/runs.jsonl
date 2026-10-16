@@ -1,0 +1,2 @@
+{"runId":"20261002T060000-cccccc","slug":"ai-news","trigger":"schedule","start":"2026-10-02T06:00:00.000Z","status":"running","pid":1}
+{"runId":"20261002T060000-cccccc","slug":"ai-news","trigger":"schedule","start":"2026-10-02T06:00:00.000Z","end":"2026-10-02T06:00:05.000Z","durationMs":5000,"status":"error","error":"Rate limit"}

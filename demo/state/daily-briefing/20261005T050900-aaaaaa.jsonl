@@ -1,0 +1,6 @@
+{"type": "system", "subtype": "init"}
+{"type": "assistant", "message": {"content": [{"type": "tool_use", "id": "t1", "name": "WebFetch", "input": {"url": "https://docs.anthropic.com/en/release-notes/claude-code", "prompt": "Neuerungen seit gestern"}}]}}
+{"type": "user", "message": {"content": [{"type": "tool_result", "tool_use_id": "t1", "content": "…"}]}}
+{"type": "assistant", "message": {"content": [{"type": "tool_use", "id": "t2", "name": "Edit", "input": {"file_path": "/home/demo/notes-vault/Calendar/Daily/2026-10-05.md", "old_string": "## Notizen", "new_string": "## Briefing …"}}]}}
+{"type": "user", "message": {"content": [{"type": "tool_result", "tool_use_id": "t2", "content": "…"}]}}
+{"type": "result", "subtype": "success", "is_error": false, "result": "## Briefing — 5. Oktober\n\n- Neues Flag `--max-budget-usd` für Hintergrundläufe\n- Statuszeile zeigt die Kosten der Sitzung", "num_turns": 9, "total_cost_usd": 0.41}

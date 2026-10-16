@@ -1,0 +1,2 @@
+{"runId":"20260930T140000-dddddd","slug":"wochenrueckblick","trigger":"schedule","start":"2026-09-30T14:00:00.000Z","status":"running","pid":1}
+{"runId":"20260930T140000-dddddd","slug":"wochenrueckblick","trigger":"schedule","start":"2026-09-30T14:00:00.000Z","end":"2026-09-30T14:01:15.000Z","durationMs":75000,"status":"success","costUsd":0.5,"turns":11}

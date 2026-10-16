@@ -1,0 +1,24 @@
+# Web UI of agent-planner as a systemd user service.
+# Install: `just install` (systemctl --user link + enable --now), see README "Run the web UI as a service".
+# Site-specific settings (agent folder, bind address, allow-lists) live in
+# ~/.config/agent-planner/web.env -- start from `.env.example`.
+[Unit]
+Description=agent-planner web UI
+
+[Service]
+Type=simple
+WorkingDirectory=%h/git/agent-planner
+# Absolute bun path (mise "latest" symlink): systemd does not know the shell PATH.
+# `sync` writes the same "latest" path into agent-planner@.service (#8); both survive bun updates.
+ExecStart=%h/.local/share/mise/installs/bun/latest/bin/bun src/web/server.ts
+Environment=PATH=%h/.local/share/mise/installs/bun/latest/bin:%h/.local/bin:/usr/local/bin:/usr/bin
+Environment=AGENT_PLANNER_PORT=4317
+# Required: AGENT_PLANNER_DIR. Optional: AGENT_PLANNER_DEFAULT_CWD, AGENT_PLANNER_HOST,
+# AGENT_PLANNER_ALLOWED_CLIENTS, AGENT_PLANNER_ALLOWED_HOSTS (see .env.example).
+# Without AGENT_PLANNER_HOST the app binds to 127.0.0.1 only.
+EnvironmentFile=%h/.config/agent-planner/web.env
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target

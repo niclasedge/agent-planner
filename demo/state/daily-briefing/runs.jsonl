@@ -1,0 +1,4 @@
+{"runId":"20261005T050900-aaaaaa","slug":"daily-briefing","trigger":"schedule","start":"2026-10-05T05:09:00.000Z","status":"running","pid":1}
+{"runId":"20261005T050900-aaaaaa","slug":"daily-briefing","trigger":"schedule","start":"2026-10-05T05:09:00.000Z","end":"2026-10-05T05:09:42.000Z","durationMs":42000,"status":"success","costUsd":0.41,"turns":9}
+{"runId":"20261006T050900-bbbbbb","slug":"daily-briefing","trigger":"schedule","start":"2026-10-06T05:09:00.000Z","status":"running","pid":1}
+{"runId":"20261006T050900-bbbbbb","slug":"daily-briefing","trigger":"schedule","start":"2026-10-06T05:09:00.000Z","end":"2026-10-06T05:12:10.000Z","durationMs":190000,"status":"success","costUsd":0.88,"turns":17}

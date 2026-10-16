@@ -1,0 +1,32 @@
+# Seite des Changes 1-gerippe. Standardteil aus proposal.md und git, Anreicherung von Hand.
+art: seite
+change: 1-gerippe
+titel: Eine Agent-Datei wird zum systemd-Timer, jeder Lauf zu einer Zeile mit Dauer
+status: {text: "BELEG · MERGE OFFEN", ton: sand}
+problem: >-
+  Für geplante Claude-Läufe gab es keinen Weg: crontab fehlt auf der Maschine, und im
+  systemd-Kontext ist der Abo-Login nicht verfügbar (der Runner nutzt daher einen API-Zugang).
+loesung: >-
+  Ein Agent ist eine Markdown-Datei mit Cron im Frontmatter. `agent-planner sync` macht daraus
+  einen Benutzertimer; der Runner startet das Agent SDK im Auto Mode und schreibt runs.jsonl.
+offen:
+  - "Kein UI — Übersicht und Detail folgen in #3 und #4"
+  - "Folge-Issues aus dem Review: #7 Aufräumen, #8 Quoting, #9 Log, #10 Rechte"
+beispiel:
+  fall: derselbe Agent, geplant für täglich 03:00
+  vorher:
+    code: |
+      $ systemd-run --user claude -p "…"
+      Error: subscription login is not
+      available in a systemd context
+  nachher:
+    code: |
+      $ systemctl --user start agent-planner@e2e-test.service
+      runs.jsonl:
+      {"status":"success","durationMs":7373,
+       "costUsd":0.0593725,"turns":1,
+       "trigger":"schedule"}
+fuer_sie:
+  - Ein Zeitplan ist ein Cron-Ausdruck in einer Datei — kein crontab nötig, verpasste Läufe holt systemd nach.
+  - Jeder Lauf hinterlässt Status, Dauer, Kosten und Turns; fehlende Anmeldung erscheint als auth_missing statt still zu scheitern.
+  - Kein Lauf wird teurer als 50 USD, länger als 30 min oder länger als 100 Turns — je Agent änderbar.

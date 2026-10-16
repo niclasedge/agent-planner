@@ -1,0 +1,5 @@
+GET LAN 192.0.2.65: 200 
+GET Loopback: 200 
+GET Tailnet 100.64.0.7: 403 Abgelehnt: Quelle
+POST Tailnet, gefälschter Host: 403 Abgelehnt: Quelle
+POST LAN, fremde Origin: 403 Abgelehnt: Origin
